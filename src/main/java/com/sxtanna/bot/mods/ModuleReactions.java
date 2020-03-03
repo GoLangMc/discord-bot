@@ -89,7 +89,7 @@ public final class ModuleReactions extends Module
 		private final Set<Long> channels;
 
 
-		public ReactionListener(@NotNull final Set<Long> channels)
+		private ReactionListener(@NotNull final Set<Long> channels)
 		{
 			this.channels = channels;
 		}
