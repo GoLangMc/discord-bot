@@ -8,6 +8,7 @@ public final class Main
 	public static void main(String[] args)
 	{
 		final var bot = new GoLangMcBot();
+		bot.load();
 	}
 
 }
