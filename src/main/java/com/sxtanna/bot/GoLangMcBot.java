@@ -48,12 +48,12 @@ public final class GoLangMcBot implements State
 
 			this.discord.set(discord);
 		}
-		catch (LoginException ex)
+		catch (final LoginException ex)
 		{
 			LOG.error("discord bot authentication failed", ex);
 			return;
 		}
-		catch (InterruptedException ex)
+		catch (final InterruptedException ex)
 		{
 			LOG.error("discord bot initialization interrupted", ex);
 			return;
@@ -125,7 +125,7 @@ public final class GoLangMcBot implements State
 
 			return Optional.of(new String(stream.readAllBytes()));
 		}
-		catch (IOException | IllegalStateException ex)
+		catch (final IOException | IllegalStateException ex)
 		{
 			LOG.error(String.format("failed to load resource '%s'", path), ex);
 		}
