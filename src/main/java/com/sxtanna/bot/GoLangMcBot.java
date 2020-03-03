@@ -1,6 +1,7 @@
 package com.sxtanna.bot;
 
 import com.sxtanna.bot.base.State;
+import com.sxtanna.bot.mods.base.Module;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -9,15 +10,19 @@ import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public final class GoLangMcBot implements State
 {
 
-	private static final Logger LOG = LoggerFactory.getLogger(GoLangMcBot.class);
+	public static final long   GID = 684343714180497444L;
+	public static final Logger LOG = LoggerFactory.getLogger(GoLangMcBot.class);
 
 
+	private final List<Module>         modules = new ArrayList<>();
 	private final AtomicReference<JDA> discord = new AtomicReference<>();
 
 
@@ -51,11 +56,41 @@ public final class GoLangMcBot implements State
 		LOG.info("discord bot successfully loaded!");
 
 
+		for (final var module : this.modules)
+		{
+			try
+			{
+				module.load();
+
+				LOG.info(String.format("successfully loaded module:%s", module.getName()));
+			}
+			catch (final Exception ex)
+			{
+				LOG.error(String.format("failed to load module:%s", module.getName()), ex);
+				// todo break and shutdown?
+			}
+		}
 	}
 
 	@Override
 	public void kill()
 	{
+		for (final var module : this.modules)
+		{
+			try
+			{
+				module.kill();
+
+				LOG.info(String.format("successfully killed module:%s", module.getName()));
+			}
+			catch (final Exception ex)
+			{
+				LOG.error(String.format("failed to kill module:%s", module.getName()), ex);
+			}
+		}
+
+		this.modules.clear();
+
 		final var discord = this.discord.getAndSet(null);
 		if (discord == null)
 		{
