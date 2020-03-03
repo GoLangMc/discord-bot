@@ -1,0 +1,20 @@
+query GetIssue($repository: String!, $number: Int!) {
+    repository(name: $repository, owner: "GoLangMc") {
+        issue(number: $number){
+            title
+            author {
+                login
+            }
+            body
+            comments(first: 100) {
+                totalCount
+                nodes {
+                    author {
+                        login
+                    }
+                }
+            }
+        }
+    }
+}
+
