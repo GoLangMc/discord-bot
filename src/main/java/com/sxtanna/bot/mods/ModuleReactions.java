@@ -62,9 +62,9 @@ public final class ModuleReactions extends Module
 		}
 
 		final var listener = new ReactionListener(channels);
-		discord.addEventListener(listener);
-
 		this.listener.set(listener);
+
+		discord.addEventListener(listener);
 	}
 
 	@Override
@@ -77,7 +77,6 @@ public final class ModuleReactions extends Module
 		}
 
 		final var discord = bot.getDiscord().orElseThrow();
-
 		discord.removeEventListener(listener);
 	}
 
