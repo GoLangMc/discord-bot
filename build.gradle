@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'idea'
+    
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+
+group 'com.sxtanna.bot'
+version '1.0-SNAPSHOT'
+
+
+sourceCompatibility = JavaVersion.VERSION_12
+targetCompatibility = JavaVersion.VERSION_12
+
+idea {
+    module.downloadJavadoc = true
+    module.downloadSources = true
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainClassName = "com.sxtanna.bot.main.Main"
+}
+
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation("net.dv8tion:JDA:4.1.1_110") {
+        exclude module: 'opus-java'
+    }
+    
+    implementation("org.slf4j:slf4j-simple:1.7.25")
+}
