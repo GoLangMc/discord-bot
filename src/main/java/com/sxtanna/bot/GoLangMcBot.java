@@ -6,6 +6,7 @@ import com.sxtanna.bot.mods.base.Module;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,10 @@ public final class GoLangMcBot implements State
 
 		try
 		{
-			final var discord = new JDABuilder(AccountType.BOT).setToken(token.get()).build();
+			final var discord = new JDABuilder(AccountType.BOT)
+					.setToken(token.get())
+					.setActivity(Activity.watching("you >:)"))
+					.build();
 			discord.awaitReady();
 
 			this.discord.set(discord);
