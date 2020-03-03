@@ -1,6 +1,7 @@
 package com.sxtanna.bot;
 
 import com.sxtanna.bot.base.State;
+import com.sxtanna.bot.mods.ModuleReactions;
 import com.sxtanna.bot.mods.base.Module;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
@@ -55,6 +56,7 @@ public final class GoLangMcBot implements State
 
 		LOG.info("discord bot successfully loaded!");
 
+		this.modules.add(new ModuleReactions(this));
 
 		for (final var module : this.modules)
 		{
