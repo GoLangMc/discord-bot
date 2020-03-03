@@ -31,6 +31,8 @@ application {
 repositories {
     jcenter()
     mavenCentral()
+    
+    maven({ url "https://dl.bintray.com/americanexpress/maven/" })
 }
 
 dependencies {
@@ -40,4 +42,6 @@ dependencies {
     
     implementation("org.slf4j:slf4j-simple:1.7.25")
     implementation("org.jetbrains:annotations:19.0.0")
+    
+    implementation("io.aexp.nodes.graphql:nodes:+")
 }
