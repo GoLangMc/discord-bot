@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public final class GoLangMcBot implements State
 	@Override
 	public void load()
 	{
-		final var token = loadToken();
+		final var token = getResource("tokens/discord.token");
 		if (token.isEmpty())
 		{
 			return;
@@ -112,12 +113,11 @@ public final class GoLangMcBot implements State
 		return Optional.ofNullable(this.discord.get());
 	}
 
-
-	private Optional<String> loadToken()
+	public Optional<String> getResource(@NotNull final String path)
 	{
 		try
 		{
-			final var stream = getClass().getClassLoader().getResourceAsStream("discord.token");
+			final var stream = getClass().getClassLoader().getResourceAsStream(path);
 			if (stream == null)
 			{
 				throw new IllegalStateException("could not find file");
@@ -127,7 +127,7 @@ public final class GoLangMcBot implements State
 		}
 		catch (IOException | IllegalStateException ex)
 		{
-			LOG.error("failed to load token from resource 'discord.token'", ex);
+			LOG.error(String.format("failed to load resource '%s'", path), ex);
 		}
 
 		return Optional.empty();
