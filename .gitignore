@@ -6,5 +6,11 @@
 .idea/
 *.iml
 
-# Discord Token
-/src/main/resources/discord.token
+# Private Tokens
+/src/main/resources/tokens
+
+# GraphQL Plugin Configuration
+/src/main/resources/github/*
+
+# Keep actual queries
+!/src/main/resources/github/*.graphql
